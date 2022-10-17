@@ -1,0 +1,18 @@
+kind: MutatingWebhookConfiguration
+apiVersion: admissionregistration.k8s.io/v1
+metadata:
+  name: mdr-webhook
+webhooks:
+  - name: webhook.webhook.svc
+    sideEffects: NoneOnDryRun
+    admissionReviewVersions: ["v1"]
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: [""]
+        apiVersions: ["*"]
+        resources: ["pods"]
+    clientConfig:
+      service:
+        namespace: mdr-webhook
+        name: mdr-webhook
+        path: /mutate
