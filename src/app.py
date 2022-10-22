@@ -45,7 +45,7 @@ def modify_pod_spec(modified_spec):
                 }
             ]
 
-        # add oneagent init container to the pod
+        # add install-oneagent init container to the pod
         modified_spec["spec"]["initContainers"] = [
             {
                 "name": "install-oneagent",
