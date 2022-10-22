@@ -30,15 +30,29 @@ spec:
         app: mdr-webhook
       name: mdr-webhook
     spec:
-      serviceAccountName: mdr-webhook # TODO: rename
+      serviceAccountName: mdr-webhook
       volumes:  
       - name: certificates
         secret:
-          secretName: mdr-webhook-cert # TODO: rename
+          secretName: mdr-webhook-cert
       containers:
         - name: mdr-webhook
-          image: ranjkrishnan/mutating-webhook:0.0.5 # TODO: replace image
+          image: ranjkrishnan/mutating-webhook:0.0.8  # replace image
           imagePullPolicy: IfNotPresent
+          env:
+            - name: ENVIRONMENT_ID
+              value: rss61842
+            - name: DT_PAAS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: DT_PAAS_TOKEN
+                  name: dynatrace-secret
+            - name: FLAVOR
+              value: "multidistro"
+            - name: TECHNOLOGY
+              value: "all"
+            - name: DT_NETWORK_ZONE
+              value: "" # add a valid network zone
           command:
             - "/bin/sh"
             - "-c"

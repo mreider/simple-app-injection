@@ -5,22 +5,6 @@ A simple way of injecting Dynatrace code modules into pods
 
 # Getting started
 
-Begin by deploying the mdr-webhook app
-
-`kubectl apply -f k8s/deployment.yaml`
-
-Next deploy the admission controller
-
-`kubectl apply -f k8s/mutate.yaml`
-
-Now create certificates for everything
-
-`kubectl apply -f cert-manager-job.yaml`
-
----
-
-# Getting started
-
 Begin by installing the [cert-manager](https://cert-manager.io/docs/installation/) 
 
 ```
@@ -35,6 +19,12 @@ kubectl apply -f k8s/issuer-certificate.yaml
 kubectl apply -f k8s/mutating-webhook-rbac.yaml
 ```
 
+Create the secrets that is later required by the deployment
+
+```
+kubectl create secret generic dynatrace-secret --from-literal DT_PAAS_TOKEN=<dt-pass-token> -n mdr-webhook
+```
+
 ```
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/mutating-webhook.yaml
@@ -43,4 +33,7 @@ kubectl apply -f k8s/mutating-webhook.yaml
 
 It is possible to run the mutating webhook locally on [minikube](https://minikube.sigs.k8s.io/docs/start/) k8s cluster
 
-To do: rebuild the docker image
+### To Do
+
+- Rebuild the docker image and push to your dockerhub
+- Add a valid network zone in `deployment.yaml`

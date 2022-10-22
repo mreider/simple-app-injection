@@ -6,7 +6,7 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: mdr-webhook/mdr-webhook-cert
 webhooks:
-  - name: mdr-webhook.mdr-webhook.svc # todo: rename deploy and service 
+  - name: mdr-webhook.mdr-webhook.svc
     sideEffects: NoneOnDryRun
     admissionReviewVersions: ["v1"]
     namespaceSelector:
