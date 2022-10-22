@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+  namespace: mdr-webhook
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mdr-webhook-cert
+  namespace: mdr-webhook
+spec:
+  secretName: mdr-webhook-cert
+  dnsNames:
+    - mdr-webhook.mdr-webhook.svc
+    - mdr-webhook.mdr-webhook.svc.cluster.local
+  issuerRef:
+    name: selfsigned-issuer

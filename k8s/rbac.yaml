@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mdr-webhook
+  namespace: mdr-webhook
+  labels:
+    app: cert-manager
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: mdr-webhook
+  namespace: mdr-webhook
+  labels:
+    app: cert-manager
+rules:
+  - apiGroups: ["admissionregistration.k8s.io"]
+    resources: ["mutatingwebhookconfigurations"]
+    verbs: ["get", "create", "patch"]
+  - apiGroups: ["certificates.k8s.io"]
+    resources: ["certificatesigningrequests"]
+    verbs: ["create", "get", "delete"]
+  - apiGroups: ["certificates.k8s.io"]
+    resources: 
+      - "certificatesigningrequests/status"
+      - "certificatesigningrequests/approval"
+      - "signers"
+    verbs: ["update", "approve"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["create", "get", "patch"]
+  - apiGroups: [""] 
+    resources: ["configmaps"]
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: mdr-webhook
+  namespace: mdr-webhook
+  labels:
+    app: cert-manager
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: mdr-webhook
+subjects:
+  - kind: ServiceAccount
+    name: mdr-webhook
+    namespace: mdr-webhook
