@@ -37,7 +37,7 @@ spec:
           secretName: mdr-webhook-cert # TODO: rename
       containers:
         - name: mdr-webhook
-          image: ranjkrishnan/mutating-webhook:0.0.3 # TODO: replace image
+          image: ranjkrishnan/mutating-webhook:0.0.5 # TODO: replace image
           imagePullPolicy: IfNotPresent
           command:
             - "/bin/sh"

@@ -7,4 +7,5 @@ name = "pypi"
 flask = "*"
 gunicorn = "*"
 jsonpatch = "*"
+pytest="*"
 

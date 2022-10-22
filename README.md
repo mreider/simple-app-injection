@@ -43,3 +43,4 @@ kubectl apply -f k8s/mutating-webhook.yaml
 
 It is possible to run the mutating webhook locally on [minikube](https://minikube.sigs.k8s.io/docs/start/) k8s cluster
 
+To do: rebuild the docker image
