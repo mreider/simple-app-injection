@@ -1,11 +1,17 @@
-kind: MutatingWebhookConfiguration
 apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
 metadata:
   name: mdr-webhook
+  namespace: mdr-webhook
+  annotations:
+    cert-manager.io/inject-ca-from: mdr-webhook/mdr-webhook-cert
 webhooks:
-  - name: webhook.webhook.svc
+  - name: mdr-webhook.mdr-webhook.svc # todo: rename deploy and service 
     sideEffects: NoneOnDryRun
     admissionReviewVersions: ["v1"]
+    namespaceSelector:
+      matchLabels:
+        mutate: allow
     rules:
       - operations: ["CREATE", "UPDATE"]
         apiGroups: [""]
