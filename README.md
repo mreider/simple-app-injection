@@ -1,4 +1,4 @@
-# NOTE: this is NOT the supported way of instrumenting pods with Dynatrace.
+# This is NOT the supported way of instrumenting pods with Dynatrace.
 
 # Getting started
 
@@ -15,7 +15,7 @@ Next, we create the Issuer and Certificate, which will create self-signed certif
 ```
 kubectl apply -f k8s/namespace.yaml
 kubectl apply -f k8s/issuer-certificate.yaml
-kubectl apply -f k8s/mutating-webhook-rbac.yaml
+kubectl apply -f k8s/rbac.yaml
 ```
 
 Create the secrets that is later required by the deployment
