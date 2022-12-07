@@ -1,7 +1,4 @@
-# simple-app-injection
-A simple way of injecting Dynatrace code modules into pods
-
-# WORK IN PROGRESS - NONFUNCTIONAL
+# NOTE: this is NOT the supported way of instrumenting pods with Dynatrace.
 
 # Getting started
 
